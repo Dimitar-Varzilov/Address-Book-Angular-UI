@@ -8,12 +8,13 @@ import { AddressService } from 'src/services/address.service';
   styleUrls: ['./edit-address.component.css'],
 })
 export class EditAddressComponent implements OnInit {
-  @Input() address?: Address;
+  // @Input() address: Address;
+  address: Address = new Address();
 
   constructor(private addressService: AddressService) {}
   ngOnInit(): void {}
 
-  public updateAddress(address: Address): void {
-    this.addressService.updateAddress(address);
+  public updateAddress(): void {
+    this.addressService.updateAddress(this.address);
   }
 }
