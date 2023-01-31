@@ -1,0 +1,16 @@
+<div *ngIf="address">
+    <h2>{{address.fullName}}</h2>
+    <div>
+        First Name
+        <input [(ngModel)]="address.firstName" placeholder="First Name">
+    </div>
+    <div>
+        Last Name:
+        <input [(ngModel)]="address.lastName" placeholder="Last Name">
+    </div>
+    <div>
+        Telephone Number:
+        <input [(ngModel)]="address.telephone" placeholder="Telephone">
+    </div>
+    <button (click)="updateAddress(address)" *ngIf="address.addressId"></button>
+</div>

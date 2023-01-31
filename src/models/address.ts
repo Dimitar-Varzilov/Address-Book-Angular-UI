@@ -1,6 +1,7 @@
-export class AddressBook {
+export class Address {
   addressId?: number;
   firstName = '';
   lastName = '';
-  telNumber = 0;
+  telephone: string = '';
+  fullName = this.firstName + ' ' + this.lastName;
 }
