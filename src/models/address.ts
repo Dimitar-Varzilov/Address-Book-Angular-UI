@@ -1,6 +1,6 @@
 export class AddressBook {
-  AddressId?: number;
-  FirstName = '';
-  LastName = '';
-  TelNumber = 0;
+  addressId?: number;
+  firstName = '';
+  lastName = '';
+  telNumber = 0;
 }
