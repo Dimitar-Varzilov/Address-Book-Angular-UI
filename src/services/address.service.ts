@@ -14,22 +14,35 @@ export class AddressService {
   constructor(private http: HttpClient) {}
 
   public getAddresses(): Observable<Address[]> {
-    return this.http.get<Address[]>(
+    var response = this.http.get<Address[]>(
       this.stringGenerator(this.ENDPOINTS.ADDRESSES)
     );
-    // return this.http.get<Address[]>(`${this.api}/${this.ENDPOINTS.ADDRESSES}`);
+    return response;
   }
 
-  public updateAddress(address: Address): void {
-    this.http.put<Address>(
+  public createAddress(address: Address): Observable<Address[]> {
+    return this.http.post<Address[]>(
+      this.stringGenerator(this.ENDPOINTS.ADDRESSES),
+      address
+    );
+  }
+
+  public updateAddress(address: Address): Observable<Address[]> {
+    return this.http.put<Address[]>(
       this.stringGenerator(this.ENDPOINTS.ADDRESSES, address.addressId),
       address
     );
   }
 
+  public deleteAddress(address: Address): Observable<Address[]> {
+    return this.http.delete<Address[]>(
+      this.stringGenerator(this.ENDPOINTS.ADDRESSES, address.addressId)
+    );
+  }
+
   private stringGenerator(endpoint: string, id?: number): string {
-    const idcheck: string = id ? `/${id}` : '';
-    const result: string = `${this.api}/${endpoint}${idcheck}`;
+    const idCheck: string = id ? `/${id}` : '';
+    const result: string = `${this.api}/${endpoint}${idCheck}`;
     return result;
   }
 }

@@ -11,18 +11,28 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class AppComponent {
   title = 'Address Book';
-  addresses: Observable<Address[]> = new Observable<Address[]>();
-  // addresses: AddressBook[] = [];
+  // addresses: Observable<Address[]> = new Observable<Address[]>();
+  addresses: Address[] = [];
+  addressToEdit: Address = new Address();
   // var dataSource;
 
   constructor(private addressService: AddressService) {
     // var response = addressService.getAddresses();
+    // console.log(response);
     // this.dataSource = new MatTableDataSource(response);
-    this.addresses = addressService.getAddresses();
+    // this.addresses = addressService.getAddresses();
   }
 
   ngOnInit(): void {
-    this.addresses = this.addressService.getAddresses();
+    this.addressService.getAddresses().subscribe((response) => {
+      console.table(response);
+      this.addresses = response;
+    });
+    // this.addresses = this.addressService.getAddresses();
+  }
+
+  updateAddresses(addresses: Address[]): void {
+    this.addresses = addresses;
   }
 
   // displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];

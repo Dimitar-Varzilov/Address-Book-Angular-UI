@@ -2,15 +2,15 @@
     <h2>{{address.fullName}}</h2>
     <div>
         First Name
-        <input [(ngModel)]="address.firstName" placeholder="First Name">
+        <input required [(ngModel)]="address.firstName" placeholder="First Name">
     </div>
     <div>
         Last Name:
-        <input [(ngModel)]="address.lastName" placeholder="Last Name">
+        <input required [(ngModel)]="address.lastName" placeholder="Last Name">
     </div>
     <div>
         Telephone Number:
-        <input [(ngModel)]="address.telephone" placeholder="Telephone">
+        <input required [(ngModel)]="address.telephone" placeholder="Telephone">
     </div>
-    <button (click)="updateAddress()" *ngIf="address.addressId"></button>
+    <button (click)="updateAddress(address)" *ngIf="address.addressId"></button>
 </div>
