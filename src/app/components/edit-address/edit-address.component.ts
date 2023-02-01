@@ -33,8 +33,6 @@ export class EditAddressComponent implements OnInit {
   deleteAddress(address: Address) {
     this.addressService
       .deleteAddress(address)
-      .subscribe((addresses: Address[]) =>
-        this.addressesUpdated.emit(addresses)
-      );
+      .subscribe((response) => this.addressesUpdated.emit(response));
   }
 }

@@ -13,22 +13,29 @@ export class AppComponent {
   title = 'Address Book';
   // addresses: Observable<Address[]> = new Observable<Address[]>();
   addresses: Address[] = [];
-  addressToEdit: Address = new Address();
-  // var dataSource;
-
-  constructor(private addressService: AddressService) {
-    // var response = addressService.getAddresses();
-    // console.log(response);
-    // this.dataSource = new MatTableDataSource(response);
-    // this.addresses = addressService.getAddresses();
-  }
+  addressToEdit?: Address;
+  isLoadingResults = false;
+  constructor(private addressService: AddressService) {}
 
   ngOnInit(): void {
     this.addressService.getAddresses().subscribe((response) => {
-      console.table(response);
       this.addresses = response;
+      console.table(response);
     });
-    // this.addresses = this.addressService.getAddresses();
+  }
+
+  createAddress(): void {
+    this.addressToEdit = new Address();
+  }
+
+  editAddress(address: Address): void {
+    this.addressToEdit = address;
+  }
+
+  deleteAddress(address: Address): void {
+    this.addressService.deleteAddress(address).subscribe((res: Address[]) => {
+      this.addresses = res;
+    });
   }
 
   updateAddresses(addresses: Address[]): void {
