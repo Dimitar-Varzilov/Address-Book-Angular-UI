@@ -1,27 +1,28 @@
 <mat-spinner *ngIf="isLoadingResults" />
-<div *ngIf="!isLoadingResults">
+<div *ngIf="!isLoadingResults" class="container">
 
-  <div><button (click)="createAddress()">Add Address</button></div>
-
-  <table>
-    <thead>
-      <th>First Name</th>
+  <div><button (click)="createAddress()" class="btn btn-primary">Add Address</button></div>
+  <br>
+  <table class="table table-bordered table-hover">
+    <thead class="table-head">
+      <th scope="col">First Name</th>
       <th>Last Name</th>
       <th>Telephone number</th>
       <th>Actions</th>
     </thead>
-    <tbody>
+    <tbody class="table-group-divider">
       <tr *ngFor="let item of addresses">
+        <td hidden>{{item.addressId}}</td>
         <td>{{item.firstName}}</td>
         <td>{{item.lastName}}</td>
         <td>{{item.telephone}}</td>
-        <td><button (click)="editAddress(item)">Edit</button></td>
-        <td><button (click)="deleteAddress(item)">Delete</button></td>
+        <td><button (click)="editAddress(item)" class="btn btn-success">Edit</button></td>
+        <td><button (click)="deleteAddress(item)" class="btn btn-danger">Delete</button></td>
       </tr>
     </tbody>
   </table>
-
+  <br>
   <app-edit-address [address]="addressToEdit" (addressesUpdated)="updateAddresses($event)"></app-edit-address>
 
 </div>
-<table-overview-example />
+<!-- <table-overview-example /> -->

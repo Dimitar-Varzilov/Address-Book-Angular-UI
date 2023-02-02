@@ -15,6 +15,7 @@ export class AppComponent {
   title = 'Address Book';
   // addresses: Observable<Address[]> = new Observable<Address[]>();
   addresses: Address[] = [];
+  dataSource: Address[] = this.addresses;
   addressToEdit?: Address;
   isLoadingResults = false;
   constructor(private addressService: AddressService) {}
@@ -33,6 +34,7 @@ export class AppComponent {
 
   editAddress(address: Address): void {
     this.addressToEdit = address;
+    // this.addressToEdit = new Address();
   }
 
   deleteAddress(address: Address): void {

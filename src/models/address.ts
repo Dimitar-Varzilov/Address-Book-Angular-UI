@@ -3,5 +3,5 @@ export class Address {
   firstName = '';
   lastName = '';
   telephone: string = '';
-  fullName = this.firstName + ' ' + this.lastName;
+  fullName: string = this.firstName + ' ' + this.lastName;
 }

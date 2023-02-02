@@ -1,16 +1,19 @@
-<div *ngIf="address">
-    <h2>{{address.fullName}}</h2>
-    <div>
-        First Name
-        <input required [(ngModel)]="address.firstName" placeholder="First Name">
-    </div>
-    <div>
-        Last Name:
-        <input required [(ngModel)]="address.lastName" placeholder="Last Name">
-    </div>
-    <div>
-        Telephone Number:
-        <input required [(ngModel)]="address.telephone" placeholder="Telephone">
-    </div>
-    <button (click)="updateAddress(address)" *ngIf="address.addressId"></button>
+<div *ngIf="address" class="mb-3">
+    <h4 class="mb-3">{{address.firstName + ' ' + address.lastName}}</h4>
+
+    <form>
+        <label for="firstName" class="form-label">First Name</label>
+        <input [(ngModel)]="address.firstName" type="text" class="form-control mb-3" id="firstName" name="firstName"
+            placeholder="First Name">
+
+        <label for="lastName" class="form-label">Last Name</label>
+        <input [(ngModel)]="address.lastName" type=" text" class="form-control mb-3" id="lastName" name="lastName"
+            placeholder="Last Name">
+
+        <label for="telephone" class="form-label">Telephone Number</label>
+        <input [(ngModel)]="address.telephone" type="text" class="form-control mb-3" id="telephone" name="telephone"
+            placeholder="Telephone">
+
+        <button (click)="updateAddress(address)">{{[buttonLabel]}}</button>
+    </form>
 </div>

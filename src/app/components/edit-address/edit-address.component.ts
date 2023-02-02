@@ -9,7 +9,10 @@ import { AddressService } from 'src/services/address.service';
 })
 export class EditAddressComponent implements OnInit {
   @Input() address?: Address;
-  @Output() addressesUpdated = new EventEmitter<Address[]>(true);
+  @Output() addressesUpdated = new EventEmitter<Address[]>();
+  buttonLabel?: string = this.address?.addressId
+    ? 'Edit Address'
+    : 'Add address';
 
   constructor(private addressService: AddressService) {}
   ngOnInit(): void {}

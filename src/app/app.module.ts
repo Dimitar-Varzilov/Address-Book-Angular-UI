@@ -12,14 +12,9 @@ import { EditAddressComponent } from './components/edit-address/edit-address.com
 import { MaterialExampleModule } from 'material.module';
 
 //Other imports
-import { TableOverviewExampleComponent } from './components/table-overview-example/table-overview-example.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    EditAddressComponent,
-    TableOverviewExampleComponent,
-  ],
+  declarations: [AppComponent, EditAddressComponent],
   imports: [
     AppRoutingModule,
     BrowserAnimationsModule,
