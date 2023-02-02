@@ -1,29 +1,29 @@
-<!-- <mat-spinner *ngIf="isLoadingResults"></mat-spinner> -->
+<mat-spinner *ngIf="isLoadingResults" />
+<div *ngIf="!isLoadingResults">
 
-<mat-slide-toggle>Toggle me!</mat-slide-toggle>
+  <div><button (click)="createAddress()">Add Address</button></div>
 
-<div><button (click)="createAddress()">Add Address</button></div>
+  <table>
+    <thead>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Telephone number</th>
+      <th>Actions</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of addresses">
+        <td>{{item.firstName}}</td>
+        <td>{{item.lastName}}</td>
+        <td>{{item.telephone}}</td>
+        <td><button (click)="editAddress(item)">Edit</button></td>
+        <td><button (click)="deleteAddress(item)">Delete</button></td>
+      </tr>
+    </tbody>
+  </table>
 
-<table>
-  <thead>
-    <th>First Name</th>
-    <th>Last Name</th>
-    <th>Telephone number</th>
-    <th>Actions</th>
-  </thead>
-  <tbody>
-    <tr *ngFor="let item of addresses">
-      <td>{{item.firstName}}</td>
-      <td>{{item.lastName}}</td>
-      <td>{{item.telephone}}</td>
-      <td><button (click)="editAddress(item)">Edit</button></td>
-      <td><button (click)="deleteAddress(item)">Delete</button></td>
-    </tr>
-  </tbody>
-</table>
+  <app-edit-address [address]="addressToEdit" (addressesUpdated)="updateAddresses($event)"></app-edit-address>
 
-<app-edit-address [address]="addressToEdit" (addressesUpdated)="updateAddresses($event)"></app-edit-address>
-
+</div>
 <!-- <mat-form-field>
   <mat-label>Filter</mat-label>
   <input matInput (keyup)=" applyFilter($event)" placeholder="Ex. ium" #input>

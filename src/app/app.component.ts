@@ -17,11 +17,12 @@ export class AppComponent {
   isLoadingResults = false;
   constructor(private addressService: AddressService) {}
 
-  ngOnInit(): void {
-    this.addressService.getAddresses().subscribe((response) => {
+  async ngOnInit(): Promise<void> {
+    this.isLoadingResults = true;
+    await this.addressService.getAddresses().subscribe((response) => {
       this.addresses = response;
-      console.table(response);
     });
+    this.isLoadingResults = false;
   }
 
   createAddress(): void {
