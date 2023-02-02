@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { AddressService } from 'src/services/address.service';
 import { Address } from 'src/models/address';
 import { Observable } from 'rxjs/internal/Observable';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-root',
@@ -42,11 +44,4 @@ export class AppComponent {
   updateAddresses(addresses: Address[]): void {
     this.addresses = addresses;
   }
-
-  // displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-
-  // applyFilter(event: Event) {
-  //   const filterValue = (event.target as HTMLInputElement).value;
-  //   this.dataSource.filter = filterValue.trim().toLowerCase();
-  // }
 }

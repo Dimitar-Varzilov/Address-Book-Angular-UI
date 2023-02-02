@@ -1,24 +1,33 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { EditAddressComponent } from './components/edit-address/edit-address.component';
-import { FormsModule } from '@angular/forms';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
+import { MaterialExampleModule } from 'material.module';
+
+//Other imports
+import { TableOverviewExampleComponent } from './components/table-overview-example/table-overview-example.component';
 
 @NgModule({
-  declarations: [AppComponent, EditAddressComponent],
+  declarations: [
+    AppComponent,
+    EditAddressComponent,
+    TableOverviewExampleComponent,
+  ],
   imports: [
     AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    MatSlideToggleModule,
-    MatProgressSpinnerModule,
+    MaterialExampleModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
