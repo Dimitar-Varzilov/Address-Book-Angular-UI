@@ -13,34 +13,36 @@ export class AddressService {
   private url = 'Addresses';
   constructor(private http: HttpClient) {}
 
-  public getAddresses(): Observable<Address[]> {
-    var response = this.http.get<Address[]>(
+  public async getAddresses() {
+    return await this.http.get<Address[]>(
       this.stringGenerator(this.ENDPOINTS.ADDRESSES)
     );
-    return response;
   }
 
-  public createAddress(address: Address): Address[] {
-    let response: Address[] = [];
-    this.http
+  public async createAddress(address: Address) {
+    await this.http
       .post<Address[]>(this.stringGenerator(this.ENDPOINTS.ADDRESSES), address)
-      .subscribe((value: Address[]) => {
-        response = value;
-      });
-    return response;
+      .subscribe();
+    return await this.getAddresses();
   }
 
-  public updateAddress(address: Address): Observable<Address[]> {
-    return this.http.put<Address[]>(
-      this.stringGenerator(this.ENDPOINTS.ADDRESSES, address.addressId),
-      address
-    );
+  public async updateAddress(address: Address) {
+    await this.http
+      .put<Address[]>(
+        this.stringGenerator(this.ENDPOINTS.ADDRESSES, address.addressId),
+        address
+      )
+      .subscribe();
+    return await this.getAddresses();
   }
 
-  public deleteAddress(address: Address): Observable<Address[]> {
-    return this.http.delete<Address[]>(
-      this.stringGenerator(this.ENDPOINTS.ADDRESSES, address.addressId)
-    );
+  public async deleteAddress(address: Address) {
+    await this.http
+      .delete<Address[]>(
+        this.stringGenerator(this.ENDPOINTS.ADDRESSES, address.addressId)
+      )
+      .subscribe();
+    return await this.getAddresses();
   }
 
   private stringGenerator(endpoint: string, id?: number): string {

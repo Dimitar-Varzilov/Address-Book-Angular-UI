@@ -22,7 +22,7 @@ export class AppComponent {
 
   async ngOnInit(): Promise<void> {
     this.isLoadingResults = true;
-    await this.addressService.getAddresses().subscribe((response) => {
+    (await this.addressService.getAddresses()).subscribe((response) => {
       this.addresses = response;
     });
     this.isLoadingResults = false;
@@ -37,10 +37,12 @@ export class AppComponent {
     // this.addressToEdit = new Address();
   }
 
-  deleteAddress(address: Address): void {
-    this.addressService.deleteAddress(address).subscribe((res: Address[]) => {
-      this.addresses = res;
-    });
+  async deleteAddress(address: Address): Promise<void> {
+    (await this.addressService.deleteAddress(address)).subscribe(
+      (res: Address[]) => {
+        this.addresses = res;
+      }
+    );
   }
 
   updateAddresses(addresses: Address[]): void {
