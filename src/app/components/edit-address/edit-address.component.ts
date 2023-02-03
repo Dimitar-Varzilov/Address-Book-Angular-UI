@@ -10,19 +10,24 @@ import { AddressService } from 'src/services/address.service';
 export class EditAddressComponent implements OnInit {
   @Input() address?: Address;
   @Output() addressesUpdated = new EventEmitter<Address[]>();
-  buttonLabel?: string = this.address?.addressId
-    ? 'Edit Address'
-    : 'Add address';
+  // buttonLabel?: string = this.address?.addressId
+  //   ? 'Edit Address'
+  //   : 'Add address';
 
   constructor(private addressService: AddressService) {}
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // console.log('Component initialized');
+  }
 
-  createAddress(address: Address) {
-    this.addressService
-      .createAddress(address)
-      .subscribe((addresses: Address[]) =>
-        this.addressesUpdated.emit(addresses)
-      );
+  async addAddress(address: Address) {
+    console.log(address);
+    await this.addressService.createAddress(address);
+    await this.addressService
+      .getAddresses()
+      .subscribe((addresses: Address[]) => {
+        console.table(addresses);
+        this.addressesUpdated.emit(addresses);
+      });
   }
 
   updateAddress(address: Address) {
@@ -31,11 +36,5 @@ export class EditAddressComponent implements OnInit {
       .subscribe((addresses: Address[]) =>
         this.addressesUpdated.emit(addresses)
       );
-  }
-
-  deleteAddress(address: Address) {
-    this.addressService
-      .deleteAddress(address)
-      .subscribe((response) => this.addressesUpdated.emit(response));
   }
 }

@@ -20,11 +20,14 @@ export class AddressService {
     return response;
   }
 
-  public createAddress(address: Address): Observable<Address[]> {
-    return this.http.post<Address[]>(
-      this.stringGenerator(this.ENDPOINTS.ADDRESSES),
-      address
-    );
+  public createAddress(address: Address): Address[] {
+    let response: Address[] = [];
+    this.http
+      .post<Address[]>(this.stringGenerator(this.ENDPOINTS.ADDRESSES), address)
+      .subscribe((value: Address[]) => {
+        response = value;
+      });
+    return response;
   }
 
   public updateAddress(address: Address): Observable<Address[]> {
