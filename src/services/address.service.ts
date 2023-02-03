@@ -20,10 +20,17 @@ export class AddressService {
   }
 
   public async createAddress(address: Address) {
-    await this.http
-      .post<Address[]>(this.stringGenerator(this.ENDPOINTS.ADDRESSES), address)
-      .subscribe();
-    return await this.getAddresses();
+    try {
+      let response = (await this.http.post<Address>(
+        this.stringGenerator(this.ENDPOINTS.ADDRESSES),
+        address
+      ));
+      response.subscribe();
+    } catch (error: any) {
+      console.log(error.message);
+    } finally {
+      return await this.getAddresses();
+    }
   }
 
   public async updateAddress(address: Address) {
