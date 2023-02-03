@@ -4,16 +4,18 @@
     <form>
         <label for="firstName" class="form-label">First Name</label>
         <input [(ngModel)]="address.firstName" type="text" class="form-control mb-3" id="firstName" name="firstName"
-            placeholder="First Name">
+            required placeholder="First Name">
 
         <label for="lastName" class="form-label">Last Name</label>
         <input [(ngModel)]="address.lastName" type=" text" class="form-control mb-3" id="lastName" name="lastName"
-            placeholder="Last Name">
+            required placeholder="Last Name">
 
         <label for="telephone" class="form-label">Telephone Number</label>
         <input [(ngModel)]="address.telephone" type="text" class="form-control mb-3" id="telephone" name="telephone"
-            placeholder="Telephone">
+            required placeholder="Telephone">
 
-        <button (click)="updateAddress(address)">{{[buttonLabel]}}</button>
+        <button *ngIf="!address.addressId" type="button" (click)="addAddress(address)" class="btn btn-success">Add
+            Address</button>
+        <button *ngIf="address.addressId" type="button" (click)="updateAddress(address)" class="btn btn-success">Edit Address</button>
     </form>
 </div>
