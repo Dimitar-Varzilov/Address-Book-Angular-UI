@@ -14,42 +14,59 @@ export class AddressService {
   constructor(private http: HttpClient) {}
 
   public async getAddresses() {
-    return await this.http.get<Address[]>(
-      this.stringGenerator(this.ENDPOINTS.ADDRESSES)
-    );
+    try {
+      let response = await this.http.get<Address[]>(
+        this.stringGenerator(this.ENDPOINTS.ADDRESSES)
+      );
+      return response;
+    } catch (error: any) {
+      console.log(error.message);
+      throw new Error('Data not found');
+    }
   }
 
   public async createAddress(address: Address) {
     try {
-      let response = (await this.http.post<Address>(
+      let response = await this.http.post<Address>(
         this.stringGenerator(this.ENDPOINTS.ADDRESSES),
         address
-      ));
+      );
       response.subscribe();
     } catch (error: any) {
       console.log(error.message);
+      throw new Error('Failed to add address: ' + error.message);
     } finally {
       return await this.getAddresses();
     }
   }
 
   public async updateAddress(address: Address) {
-    await this.http
-      .put<Address[]>(
+    try {
+      let response = await this.http.put<Address[]>(
         this.stringGenerator(this.ENDPOINTS.ADDRESSES, address.addressId),
         address
-      )
-      .subscribe();
-    return await this.getAddresses();
+      );
+      response.subscribe();
+    } catch (error: any) {
+      console.log(error.message);
+      throw new Error('Failed to update address: ' + error.message);
+    } finally {
+      return await this.getAddresses();
+    }
   }
 
   public async deleteAddress(address: Address) {
-    await this.http
-      .delete<Address[]>(
+    try {
+      let response = await this.http.delete<Address[]>(
         this.stringGenerator(this.ENDPOINTS.ADDRESSES, address.addressId)
-      )
-      .subscribe();
-    return await this.getAddresses();
+      );
+      response.subscribe();
+    } catch (error: any) {
+      console.log(error.message);
+      throw new Error('Failed to delete address: ' + error.message);
+    } finally {
+      return await this.getAddresses();
+    }
   }
 
   private stringGenerator(endpoint: string, id?: number): string {

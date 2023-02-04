@@ -13,7 +13,6 @@ import { MatSort } from '@angular/material/sort';
 })
 export class AppComponent {
   title = 'Address Book';
-  // addresses: Observable<Address[]> = new Observable<Address[]>();
   addresses: Address[] = [];
   dataSource: Address[] = this.addresses;
   addressToEdit?: Address;
@@ -22,7 +21,8 @@ export class AppComponent {
 
   async ngOnInit(): Promise<void> {
     this.isLoadingResults = true;
-    (await this.addressService.getAddresses()).subscribe((response) => {
+    let response = await this.addressService.getAddresses();
+    response.subscribe((response) => {
       this.addresses = response;
     });
     this.isLoadingResults = false;
@@ -34,15 +34,15 @@ export class AppComponent {
 
   editAddress(address: Address): void {
     this.addressToEdit = address;
-    // this.addressToEdit = new Address();
   }
 
   async deleteAddress(address: Address): Promise<void> {
-    (await this.addressService.deleteAddress(address)).subscribe(
-      (res: Address[]) => {
-        this.addresses = res;
-      }
-    );
+    this.isLoadingResults = true;
+    let response = await this.addressService.deleteAddress(address);
+    response.subscribe((response) => {
+      this.addresses = response;
+    });
+    this.isLoadingResults = false;
   }
 
   updateAddresses(addresses: Address[]): void {

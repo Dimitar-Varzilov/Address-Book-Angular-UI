@@ -23,7 +23,6 @@ export class EditAddressComponent implements OnInit {
     try {
       let response = await this.addressService.createAddress(address);
       response.subscribe((addresses: Address[]) => {
-        console.log('inside address');
         this.addressesUpdated.emit(addresses);
       });
     } catch (error: any) {
