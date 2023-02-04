@@ -10,11 +10,12 @@ import { AppComponent } from './app.component';
 import { EditAddressComponent } from './components/edit-address/edit-address.component';
 
 import { MaterialExampleModule } from 'material.module';
+import { LoadingComponentComponent } from './components/loading component/loading-component/loading-component.component';
 
 //Other imports
 
 @NgModule({
-  declarations: [AppComponent, EditAddressComponent],
+  declarations: [AppComponent, EditAddressComponent, LoadingComponentComponent],
   imports: [
     AppRoutingModule,
     BrowserAnimationsModule,

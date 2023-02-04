@@ -25,11 +25,15 @@ export class EditAddressComponent implements OnInit {
       .subscribe((addresses: Address[]) => {
         this.addressesUpdated.emit(addresses);
       });
+    this.address = new Address();
   }
 
-  async updateAddress(address: Address) {
-    (await this.addressService.updateAddress(address)).subscribe(
-      (addresses: Address[]) => this.addressesUpdated.emit(addresses)
-    );
+  updateAddress(address: Address) {
+    this.addressService
+      .updateAddress(address)
+      .subscribe((addresses: Address[]) =>
+        this.addressesUpdated.emit(addresses)
+      );
+    this.address = new Address();
   }
 }

@@ -1,7 +1,8 @@
-<mat-spinner *ngIf="isLoadingResults" />
-<div *ngIf="!isLoadingResults" class="container">
-
-  <div><button (click)="createAddress()" class="btn btn-primary">Add Address</button></div>
+<div *ngIf="!isLoading" class="m-4 overflow-hidden">
+  <div class="d-flex flex-row">
+    <button (click)="createAddress()" class="btn btn-primary m-2">Add Address</button>
+    <button (click)="createAddress()" class="btn btn-primary m-2">Show filters</button>
+  </div>
   <br>
   <table class="table table-bordered table-hover">
     <thead class="table-head">
@@ -12,7 +13,6 @@
     </thead>
     <tbody class="table-group-divider">
       <tr *ngFor="let item of addresses">
-        <td hidden>{{item.addressId}}</td>
         <td>{{item.firstName}}</td>
         <td>{{item.lastName}}</td>
         <td>{{item.telephone}}</td>
@@ -20,6 +20,35 @@
         <td><button (click)="deleteAddress(item)" class="btn btn-danger">Delete</button></td>
       </tr>
     </tbody>
+  </table>
+  <br>
+  <table mat-table [dataSource]="dataSource">
+    <!-- First Name Definition -->
+    <ng-container matColumnDef="firstName">
+      <th mat-header-cell *matHeaderCellDef> First Name </th>
+      <td mat-cell *matCellDef="let address"> {{address.firstName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="lastName">
+      <th mat-header-cell *matHeaderCellDef> Last Name </th>
+      <td mat-cell *matCellDef="let address"> {{address.lastName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="telephone">
+      <th mat-header-cell *matHeaderCellDef> Telephone number </th>
+      <td mat-cell *matCellDef="let address"> {{address.telephone}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let address"><button (click)="editAddress(address)" class="btn btn-danger">Edit</button>
+        <button (click)="deleteAddress(address)" class="btn btn-success">Delete</button>
+      </td>
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
   <br>
   <app-edit-address [address]="addressToEdit" (addressesUpdated)="updateAddresses($event)"></app-edit-address>
