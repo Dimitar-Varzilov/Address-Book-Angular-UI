@@ -13,59 +13,49 @@ export class AddressService {
   private url = 'Addresses';
   constructor(private http: HttpClient) {}
 
-  public async getAddresses() {
+  public getAddresses() {
     try {
-      let response = await this.http.get<Address[]>(
+      return this.http.get<Address[]>(
         this.stringGenerator(this.ENDPOINTS.ADDRESSES)
       );
-      return response;
     } catch (error: any) {
       console.log(error.message);
       throw new Error('Data not found');
     }
   }
 
-  public async createAddress(address: Address) {
+  public createAddress(address: Address): Observable<Address[]> {
     try {
-      let response = await this.http.post<Address>(
+      return this.http.post<Address[]>(
         this.stringGenerator(this.ENDPOINTS.ADDRESSES),
         address
       );
-      response.subscribe();
     } catch (error: any) {
       console.log(error.message);
       throw new Error('Failed to add address: ' + error.message);
-    } finally {
-      return await this.getAddresses();
     }
   }
 
-  public async updateAddress(address: Address) {
+  public updateAddress(address: Address): Observable<Address[]> {
     try {
-      let response = await this.http.put<Address[]>(
+      return this.http.put<Address[]>(
         this.stringGenerator(this.ENDPOINTS.ADDRESSES, address.addressId),
         address
       );
-      response.subscribe();
     } catch (error: any) {
       console.log(error.message);
       throw new Error('Failed to update address: ' + error.message);
-    } finally {
-      return await this.getAddresses();
     }
   }
 
-  public async deleteAddress(address: Address) {
+  public deleteAddress(address: Address): Observable<Address[]> {
     try {
-      let response = await this.http.delete<Address[]>(
+      return this.http.delete<Address[]>(
         this.stringGenerator(this.ENDPOINTS.ADDRESSES, address.addressId)
       );
-      response.subscribe();
     } catch (error: any) {
       console.log(error.message);
       throw new Error('Failed to delete address: ' + error.message);
-    } finally {
-      return await this.getAddresses();
     }
   }
 

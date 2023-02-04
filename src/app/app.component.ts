@@ -19,10 +19,9 @@ export class AppComponent {
   isLoadingResults = false;
   constructor(private addressService: AddressService) {}
 
-  async ngOnInit(): Promise<void> {
+  ngOnInit(): void {
     this.isLoadingResults = true;
-    let response = await this.addressService.getAddresses();
-    response.subscribe((response) => {
+    this.addressService.getAddresses().subscribe((response) => {
       this.addresses = response;
     });
     this.isLoadingResults = false;

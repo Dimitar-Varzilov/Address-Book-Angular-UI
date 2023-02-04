@@ -19,15 +19,12 @@ export class EditAddressComponent implements OnInit {
     // console.log('Component initialized');
   }
 
-  async addAddress(address: Address) {
-    try {
-      let response = await this.addressService.createAddress(address);
-      response.subscribe((addresses: Address[]) => {
+  addAddress(address: Address) {
+    this.addressService
+      .createAddress(address)
+      .subscribe((addresses: Address[]) => {
         this.addressesUpdated.emit(addresses);
       });
-    } catch (error: any) {
-      console.log(error.message);
-    }
   }
 
   async updateAddress(address: Address) {
