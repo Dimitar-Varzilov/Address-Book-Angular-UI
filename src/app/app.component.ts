@@ -1,7 +1,6 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { AddressService } from 'src/services/address.service';
 import { Address } from 'src/models/address';
-import { Observable } from 'rxjs/internal/Observable';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -15,11 +14,7 @@ import { LoadingComponentComponent } from './components/loading component/loadin
 })
 export class AppComponent extends LoadingComponentComponent {
   title = 'Address Book';
-  addresses: Address[] = [];
-  filteredAddresses: Address[] = [];
-  // addresses2: Address[] =
-  //   this.filteredAddresses.length > 0 ? this.filteredAddresses : this.addresses;
-  addresses2: Address[] = this.addresses;
+  addresses!: Address[];
   addressToEdit?: Address;
   displayedColumns: string[] = [
     'firstName',
@@ -27,7 +22,10 @@ export class AppComponent extends LoadingComponentComponent {
     'telephone',
     'actions',
   ];
-  dataSource: Address[] = [];
+  pageSizeOptions = [5, 10, 25, 100];
+  dataSource!: MatTableDataSource<Address>;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private addressService: AddressService) {
     super();
@@ -37,7 +35,9 @@ export class AppComponent extends LoadingComponentComponent {
     this.isLoading = true;
     this.addressService.getAddresses().subscribe((response) => {
       this.addresses = response;
-      this.dataSource = response;
+      this.dataSource = new MatTableDataSource(this.addresses);
+      this.paginator = this.paginator;
+      this.sort = this.sort;
     });
     this.isLoading = false;
   }
@@ -68,5 +68,13 @@ export class AppComponent extends LoadingComponentComponent {
       (address: Address) =>
         address.toString().toLowerCase().includes(query.toLowerCase())
     );
+  }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 }
