@@ -11,11 +11,12 @@ import { EditAddressComponent } from './components/edit-address/edit-address.com
 
 import { MaterialExampleModule } from 'material.module';
 import { LoadingComponentComponent } from './components/loading component/loading-component/loading-component.component';
+import { NewTableComponent } from './new-table/new-table.component';
 
 //Other imports
 
 @NgModule({
-  declarations: [AppComponent, EditAddressComponent, LoadingComponentComponent],
+  declarations: [AppComponent, EditAddressComponent, LoadingComponentComponent, NewTableComponent],
   imports: [
     AppRoutingModule,
     BrowserAnimationsModule,
