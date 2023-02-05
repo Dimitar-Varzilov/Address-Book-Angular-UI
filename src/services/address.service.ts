@@ -38,21 +38,25 @@ export class AddressService {
 
   public updateAddress(address: Address): Observable<Address[]> {
     try {
-      return this.http.put<Address[]>(
+      let response = this.http.put<Address[]>(
         this.stringGenerator(this.ENDPOINTS.ADDRESSES, address.addressId),
         address
       );
+      alert(`Successfully updating address`);
+      return response;
     } catch (error: any) {
       console.log(error.message);
       throw new Error('Failed to update address: ' + error.message);
     }
   }
 
-  public deleteAddress(address: Address): Observable<Address[]> {
+  public deleteAddress(id: number): Observable<Address[]> {
     try {
-      return this.http.delete<Address[]>(
-        this.stringGenerator(this.ENDPOINTS.ADDRESSES, address.addressId)
+      let response = this.http.delete<Address[]>(
+        this.stringGenerator(this.ENDPOINTS.ADDRESSES, id)
       );
+      alert(`Successfully deleting address`);
+      return response;
     } catch (error: any) {
       console.log(error.message);
       throw new Error('Failed to delete address: ' + error.message);

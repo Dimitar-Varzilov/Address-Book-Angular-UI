@@ -2,7 +2,7 @@ import { AddressService } from 'src/services/address.service';
 import { Address } from 'src/models/address';
 import { LoadingComponentComponent } from './components/loading component/loading-component/loading-component.component';
 
-import { AfterViewInit, Component, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { DataSource } from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -13,10 +13,7 @@ import { MatSort } from '@angular/material/sort';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent
-  extends LoadingComponentComponent
-  implements AfterViewInit, OnInit
-{
+export class AppComponent extends LoadingComponentComponent implements OnInit {
   title = 'Address Book';
   addresses!: Address[];
   addressToEdit?: Address;
@@ -33,31 +30,22 @@ export class AppComponent
 
   constructor(private addressService: AddressService) {
     super();
-    // this.isLoading = true;
-    // let apiResponse: Address[] = [];
-    // this.addressService.getAddresses().subscribe((response) => {
-    //   this.addresses = response;
-    //   const addresses = Array.from(response);
-    //   apiResponse = addresses;
-    // });
-    // console.table(apiResponse);
-    // this.dataSource = new MatTableDataSource(apiResponse);
-    // this.isLoading = false;
   }
 
-  async ngOnInit(): Promise<void> {
-    const response = await this.addressService.getAddresses();
-    let apiResponse2 = response.subscribe((response) => {
-      this.addresses = response;
-      this.dataSource = new MatTableDataSource(response);
+  ngOnInit(): void {
+    this.getAddressList();
+  }
+
+  getAddressList(): void {
+    this.addressService.getAddresses().subscribe({
+      next: (response) => {
+        this.dataSource = new MatTableDataSource(response);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      },
+      error: console.log,
     });
   }
-
-  ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }
-
   createAddress(): void {
     this.addressToEdit = new Address();
   }
@@ -66,27 +54,25 @@ export class AppComponent
     this.addressToEdit = address;
   }
 
-  async deleteAddress(address: Address): Promise<void> {
+  async deleteAddress(id: number): Promise<void> {
     this.isLoading = true;
-    let response = await this.addressService.deleteAddress(address);
-    response.subscribe((response) => {
-      this.addresses = response;
-    });
+    await this.addressService
+      .deleteAddress(id)
+      .subscribe((addresses: Address[]) => {
+        addresses.length > 0;
+        this.getAddressList();
+      });
     this.isLoading = false;
   }
 
-  updateAddresses(addresses: Address[]): void {
-    this.addresses = addresses;
-    this.dataSource.disconnect();
-    this.dataSource = new MatTableDataSource(this.addresses);
+  async updateAddresses(isSuccessful: boolean): Promise<void> {
+    if (isSuccessful) {
+      await this.getAddressList();
+    } else {
+      alert(`Error updating address`);
+    }
   }
 
-  filterAddresses(query: string): void {
-    const filteredAddresses: Address[] = this.addresses.filter(
-      (address: Address) =>
-        address.toString().toLowerCase().includes(query.toLowerCase())
-    );
-  }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -95,17 +81,4 @@ export class AppComponent
       this.dataSource.paginator.firstPage();
     }
   }
-  // createNewUser(id: number): Address {
-  // const name =
-  //  this.addresses[Math.round(Math.random() * (this.addresses.length - 1))] +
-  //  ' ' +
-  //  this.addresses[Math.round(Math.random() * (this.addresses.length - 1))].charAt(0) +
-  //  '.';
-
-  // return {
-  //  id: id.toString(),
-  //  name: name,
-  //  progress: Math.round(Math.random() * 100).toString(),
-  //  fruit: FRUITS[Math.round(Math.random() * (FRUITS.length - 1))],
-  // };
 }

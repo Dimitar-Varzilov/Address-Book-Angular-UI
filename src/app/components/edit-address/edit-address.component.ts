@@ -9,7 +9,7 @@ import { AddressService } from 'src/services/address.service';
 })
 export class EditAddressComponent implements OnInit {
   @Input() address?: Address;
-  @Output() addressesUpdated = new EventEmitter<Address[]>();
+  @Output() addressesUpdated = new EventEmitter<boolean>();
   // buttonLabel?: string = this.address?.addressId
   //   ? 'Edit Address'
   //   : 'Add address';
@@ -23,7 +23,9 @@ export class EditAddressComponent implements OnInit {
     this.addressService
       .createAddress(address)
       .subscribe((addresses: Address[]) => {
-        this.addressesUpdated.emit(addresses);
+        addresses.length > 0
+          ? this.addressesUpdated.emit(true)
+          : this.addressesUpdated.emit(false);
       });
     this.address = new Address();
   }
@@ -31,9 +33,11 @@ export class EditAddressComponent implements OnInit {
   updateAddress(address: Address) {
     this.addressService
       .updateAddress(address)
-      .subscribe((addresses: Address[]) =>
-        this.addressesUpdated.emit(addresses)
-      );
+      .subscribe((addresses: Address[]) => {
+        addresses.length > 0
+          ? this.addressesUpdated.emit(true)
+          : this.addressesUpdated.emit(false);
+      });
     this.address = new Address();
   }
 }
