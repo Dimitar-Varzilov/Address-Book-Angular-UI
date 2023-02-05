@@ -2,7 +2,7 @@ import { AddressService } from 'src/services/address.service';
 import { Address } from 'src/models/address';
 import { LoadingComponentComponent } from './components/loading component/loading-component/loading-component.component';
 
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild, OnInit } from '@angular/core';
 import { DataSource } from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -15,7 +15,7 @@ import { MatSort } from '@angular/material/sort';
 })
 export class AppComponent
   extends LoadingComponentComponent
-  implements AfterViewInit
+  implements AfterViewInit, OnInit
 {
   title = 'Address Book';
   addresses!: Address[];
@@ -33,20 +33,29 @@ export class AppComponent
 
   constructor(private addressService: AddressService) {
     super();
+    // this.isLoading = true;
+    // let apiResponse: Address[] = [];
+    // this.addressService.getAddresses().subscribe((response) => {
+    //   this.addresses = response;
+    //   const addresses = Array.from(response);
+    //   apiResponse = addresses;
+    // });
+    // console.table(apiResponse);
+    // this.dataSource = new MatTableDataSource(apiResponse);
+    // this.isLoading = false;
   }
 
-  ngOnInit(): void {
-    this.isLoading = true;
-    this.addressService.getAddresses().subscribe((response) => {
+  async ngOnInit(): Promise<void> {
+    const response = await this.addressService.getAddresses();
+    let apiResponse2 = response.subscribe((response) => {
       this.addresses = response;
-      this.dataSource = new MatTableDataSource(this.addresses);
+      this.dataSource = new MatTableDataSource(response);
     });
-    this.isLoading = false;
   }
 
   ngAfterViewInit(): void {
-    this.paginator = this.paginator;
-    this.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   createAddress(): void {

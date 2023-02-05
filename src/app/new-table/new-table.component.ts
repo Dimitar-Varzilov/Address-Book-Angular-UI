@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild, OnInit } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -47,19 +47,21 @@ const NAMES: string[] = [
  * @title Data table with sorting, pagination, and filtering.
  */
 @Component({
-  selector: 'new-table.component',
+  selector: 'new-table-component',
   styleUrls: ['new-table.component.css'],
   templateUrl: 'new-table.component.html',
 })
-export class NewTableComponent implements AfterViewInit {
+export class NewTableComponent implements AfterViewInit, OnInit {
   displayedColumns: string[] = ['id', 'name', 'progress', 'fruit'];
-  dataSource: MatTableDataSource<UserData>;
+  dataSource!: MatTableDataSource<UserData>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor() {
     // Create 100 users
+  }
+  ngOnInit(): void {
     const users = Array.from({ length: 100 }, (_, k) => createNewUser(k + 1));
 
     // Assign the data to the data source for the table to render
