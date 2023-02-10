@@ -21,6 +21,10 @@ export class AppComponent extends LoadingComponentComponent implements OnInit {
     'firstName',
     'lastName',
     'telephone',
+    'userAddress',
+    'postalCode',
+    'city',
+    'country',
     'actions',
   ];
   pageSizeOptions = [5, 10, 25, 100];

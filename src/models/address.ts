@@ -3,5 +3,9 @@ export class Address {
   firstName = '';
   lastName = '';
   telephone: string = '';
+  postalCode: number = 0;
+  city: string = '';
+  country: string = '';
+  address: string = '';
   // fullName: string = this.firstName + ' ' + this.lastName;
 }
