@@ -5,10 +5,10 @@ import { MatDialogModule } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-loading-component',
-  templateUrl: './loading-component.component.html',
-  styleUrls: ['./loading-component.component.css'],
+  templateUrl: './loading-spinner.component.html',
+  styleUrls: ['./loading-spinner.component.css'],
 })
-export class LoadingComponentComponent {
+export class LoadingSpinnerComponent {
   constructor() {}
   isLoading = false;
   // isLoading = true;

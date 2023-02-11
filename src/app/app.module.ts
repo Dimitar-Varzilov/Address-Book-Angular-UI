@@ -8,13 +8,21 @@ import { MaterialExampleModule } from 'material.module';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { LoadingComponentComponent } from './components/loading component/loading-component/loading-component.component';
+import { LoadingSpinnerComponent } from './components/loading component/loading-component/loading-spinner.component';
 import { EditAddressComponent } from './components/edit-address/edit-address.component';
+import { AddressesTableComponent } from './addresses-table/addresses-table.component';
+import { ErrorComponent } from './error/error.component';
 
 //Other imports
 
 @NgModule({
-  declarations: [AppComponent, EditAddressComponent, LoadingComponentComponent],
+  declarations: [
+    AppComponent,
+    EditAddressComponent,
+    LoadingSpinnerComponent,
+    AddressesTableComponent,
+    ErrorComponent,
+  ],
   imports: [
     AppRoutingModule,
     BrowserAnimationsModule,
