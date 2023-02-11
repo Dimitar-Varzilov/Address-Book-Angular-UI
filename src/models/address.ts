@@ -6,6 +6,6 @@ export class Address {
   postalCode: number = 0;
   city: string = '';
   country: string = '';
-  address: string = '';
+  userAddress: string = '';
   // fullName: string = this.firstName + ' ' + this.lastName;
 }

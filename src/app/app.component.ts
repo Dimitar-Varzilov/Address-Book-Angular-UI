@@ -58,20 +58,18 @@ export class AppComponent extends LoadingComponentComponent implements OnInit {
     this.addressToEdit = address;
   }
 
-  async deleteAddress(id: number): Promise<void> {
+  deleteAddress(id: number): void {
     this.isLoading = true;
-    await this.addressService
-      .deleteAddress(id)
-      .subscribe((addresses: Address[]) => {
-        addresses.length > 0;
-        this.getAddressList();
-      });
+    this.addressService.deleteAddress(id).subscribe((addresses: Address[]) => {
+      addresses.length > 0;
+      this.getAddressList();
+    });
     this.isLoading = false;
   }
 
-  async updateAddresses(isSuccessful: boolean): Promise<void> {
+  updateAddresses(isSuccessful: boolean): void {
     if (isSuccessful) {
-      await this.getAddressList();
+      this.getAddressList();
     } else {
       alert(`Error updating address`);
     }

@@ -38,6 +38,7 @@ export class AddressService {
 
   public updateAddress(address: Address): Observable<Address[]> {
     try {
+      console.log(address.postalCode);
       let response = this.http.put<Address[]>(
         this.stringGenerator(this.ENDPOINTS.ADDRESSES, address.addressId),
         address

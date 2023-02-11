@@ -1,16 +1,15 @@
 <div *ngIf="!isLoading" class="m-4 overflow-hidden">
-  <div class="d-flex flex-row">
-  </div>
-  <button (click)="createAddress()" class="btn btn-primary m-2">Add Address</button>
-  <br>
-  <br>
 
-  <mat-form-field>
-    <mat-label>Filter</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Dim" #input>
-  </mat-form-field>
+  <div class="mat-elevation-z8 container">
+    <div class="d-flex flex-row">
+    </div>
+    <button (click)="createAddress()" class="btn btn-primary m-2">Add Address</button>
 
-  <div class="mat-elevation-z8">
+    <mat-form-field class="mt-2">
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Dim" #input>
+    </mat-form-field>
+
     <table mat-table [dataSource]="dataSource" matSort>
 
       <ng-container matColumnDef="firstName">
