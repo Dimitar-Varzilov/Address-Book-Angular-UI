@@ -1,6 +1,6 @@
 import { AddressService } from 'src/services/address.service';
 import { Address } from 'src/models/address';
-import { LoadingComponentComponent } from './components/loading component/loading-component/loading-component.component';
+import { LoadingComponentComponent as LoadingComponent } from './components/loading component/loading-component/loading-component.component';
 
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { DataSource } from '@angular/cdk/collections';
@@ -13,7 +13,7 @@ import { MatSort } from '@angular/material/sort';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent extends LoadingComponentComponent implements OnInit {
+export class AppComponent extends LoadingComponent implements OnInit {
   title = 'Address Book';
   addresses!: Address[];
   addressToEdit?: Address;
@@ -41,6 +41,7 @@ export class AppComponent extends LoadingComponentComponent implements OnInit {
   }
 
   getAddressList(): void {
+    this.isLoading = true;
     this.addressService.getAddresses().subscribe({
       next: (response) => {
         this.dataSource = new MatTableDataSource(response);
@@ -49,6 +50,7 @@ export class AppComponent extends LoadingComponentComponent implements OnInit {
       },
       error: console.log,
     });
+    this.isLoading = false;
   }
   createAddress(): void {
     this.addressToEdit = new Address();
