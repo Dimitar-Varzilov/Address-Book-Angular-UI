@@ -12,6 +12,7 @@ import { LoadingSpinnerComponent } from './components/loading component/loading-
 import { EditAddressComponent } from './components/edit-address/edit-address.component';
 import { AddressesTableComponent } from './addresses-table/addresses-table.component';
 import { ErrorComponent } from './error/error.component';
+import { LoginComponent } from './login/login.component';
 
 //Other imports
 
@@ -22,6 +23,7 @@ import { ErrorComponent } from './error/error.component';
     LoadingSpinnerComponent,
     AddressesTableComponent,
     ErrorComponent,
+    LoginComponent,
   ],
   imports: [
     AppRoutingModule,
