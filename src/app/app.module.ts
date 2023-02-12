@@ -13,6 +13,7 @@ import { EditAddressComponent } from './components/edit-address/edit-address.com
 import { AddressesTableComponent } from './addresses-table/addresses-table.component';
 import { ErrorComponent } from './error/error.component';
 import { LoginComponent } from './login/login.component';
+import { HomeComponent } from './home/home.component';
 
 //Other imports
 
@@ -24,6 +25,7 @@ import { LoginComponent } from './login/login.component';
     AddressesTableComponent,
     ErrorComponent,
     LoginComponent,
+    HomeComponent,
   ],
   imports: [
     AppRoutingModule,
