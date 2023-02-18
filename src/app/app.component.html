@@ -1,10 +1,10 @@
-<app-loading-component *ngIf="isLoading"></app-loading-component>
 <div class="nav-container">
     <nav class="nav nav-pills flex-column flex-sm-row">
         <a class="flex-sm-fill text-sm-center nav-link active" aria-current="page" href="#">Начало</a>
         <a class="flex-sm-fill text-sm-center nav-link" href="AddressesTable">Адресна Таблица</a>
     </nav>
 </div>
+<app-loading-component *ngIf="isLoading"></app-loading-component>
 <router-outlet *ngIf="!isLoading">
 
 </router-outlet>

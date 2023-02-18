@@ -1,8 +1,8 @@
 import { AddressService } from 'src/services/address.service';
 import { Address } from 'src/models/address';
-import { LoadingSpinnerComponent } from '../components/loading component/loading-component/loading-spinner.component';
+import { LoadingSpinnerComponent } from '../loading-component/loading-spinner.component';
 
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { DataSource } from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -15,7 +15,7 @@ import { MatSort } from '@angular/material/sort';
 })
 export class AddressesTableComponent
   extends LoadingSpinnerComponent
-  implements OnInit
+  implements OnInit, OnDestroy
 {
   title = 'Address Book';
   private _addresses!: Address[];
@@ -41,6 +41,7 @@ export class AddressesTableComponent
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   paginatorLength!: number | undefined;
+  pageIndex!: number | string | undefined;
 
   constructor(private addressService: AddressService) {
     super();
@@ -84,7 +85,7 @@ export class AddressesTableComponent
     if (isSuccessful) {
       this.getAddressList();
     } else {
-      alert(`Error updating address`);
+      alert(`Грешка при извличане на данните`);
     }
   }
 
@@ -99,5 +100,11 @@ export class AddressesTableComponent
 
   getCurrentPaginator() {
     this.paginatorLength = this.dataSource.paginator?.pageSize;
+    this.pageIndex = this.dataSource.paginator
+      ? this.dataSource.paginator?.pageIndex + 1
+      : 'invalid page index';
+  }
+  ngOnDestroy(): void {
+    // this.addressService.getAddresses().
   }
 }

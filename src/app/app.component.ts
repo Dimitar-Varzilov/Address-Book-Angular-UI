@@ -1,12 +1,5 @@
-import { AddressService } from 'src/services/address.service';
-import { Address } from 'src/models/address';
-import { LoadingSpinnerComponent } from './components/loading component/loading-component/loading-spinner.component';
-
-import { Component, ViewChild, OnInit } from '@angular/core';
-import { DataSource } from '@angular/cdk/collections';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { LoadingSpinnerComponent } from './components/loading-component/loading-spinner.component';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',

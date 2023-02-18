@@ -13,10 +13,11 @@ export class AddressService {
   private url = 'Addresses';
   constructor(private http: HttpClient) {}
 
-  public getAddresses() {
+  public getAddresses(options?: object): Observable<Address[]> {
     try {
       return this.http.get<Address[]>(
-        this.stringGenerator(this.ENDPOINTS.ADDRESSES)
+        this.stringGenerator(this.ENDPOINTS.ADDRESSES),
+        options
       );
     } catch (error: any) {
       console.log(error.message);
@@ -40,7 +41,9 @@ export class AddressService {
     try {
       console.log(address.postalCode);
       let response = this.http.put<Address[]>(
-        this.stringGenerator(this.ENDPOINTS.ADDRESSES, address.addressId),
+        this.stringGenerator(this.ENDPOINTS.ADDRESSES, {
+          id: address.addressId,
+        }),
         address
       );
       alert(`Successfully updating address`);
@@ -54,7 +57,7 @@ export class AddressService {
   public deleteAddress(id: number): Observable<Address[]> {
     try {
       let response = this.http.delete<Address[]>(
-        this.stringGenerator(this.ENDPOINTS.ADDRESSES, id)
+        this.stringGenerator(this.ENDPOINTS.ADDRESSES, { id: id })
       );
       alert(`Successfully deleting address`);
       return response;
@@ -64,9 +67,14 @@ export class AddressService {
     }
   }
 
-  private stringGenerator(endpoint: string, id?: number): string {
+  private stringGenerator(
+    endpoint: string,
+    options: { id?: number; query?: string } = {}
+  ): string {
+    const { id, query } = options;
     const idCheck: string = id ? `/${id}` : '';
-    const result: string = `${this.api}/${endpoint}${idCheck}`;
+    const queryCheck: string = query ? `?query=${query}` : '';
+    const result: string = `${this.api}/${endpoint}${idCheck}${queryCheck}`;
     return result;
   }
 }

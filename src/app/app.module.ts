@@ -8,12 +8,12 @@ import { MaterialExampleModule } from 'material.module';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { LoadingSpinnerComponent } from './components/loading component/loading-component/loading-spinner.component';
+import { LoadingSpinnerComponent } from './components/loading-component/loading-spinner.component';
 import { EditAddressComponent } from './components/edit-address/edit-address.component';
-import { AddressesTableComponent } from './addresses-table/addresses-table.component';
-import { ErrorComponent } from './error/error.component';
-import { LoginComponent } from './login/login.component';
-import { HomeComponent } from './home/home.component';
+import { AddressesTableComponent } from './components/addresses-table/addresses-table.component';
+import { ErrorComponent } from '../pages/error/error.component';
+import { LoginComponent } from '../pages/login/login.component';
+import { HomeComponent } from '../pages/home/home.component';
 
 //Other imports
 
