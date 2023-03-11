@@ -48,7 +48,7 @@ export class AddressesTableComponent
   }
 
   ngOnInit(): void {
-    this.getAddressList();
+    // this.getAddressList();
   }
 
   getAddressList(): void {

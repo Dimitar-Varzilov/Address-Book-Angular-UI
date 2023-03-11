@@ -3,21 +3,23 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { environment } from 'src/environments/environment';
 import { Address } from 'src/models/address';
+import { requestOptions } from 'src/models/requestOptions';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AddressService {
-  private api = environment.apiUrl;
+  private apiUrl = environment.apiUrl;
   private ENDPOINTS = environment.ENDPOINTS;
-  private url = 'Addresses';
   constructor(private http: HttpClient) {}
 
-  public getAddresses(options?: object): Observable<Address[]> {
+  public getAddresses(
+    HTTPRequestOptions?: requestOptions
+  ): Observable<Address[]> {
     try {
       return this.http.get<Address[]>(
         this.stringGenerator(this.ENDPOINTS.ADDRESSES),
-        options
+        HTTPRequestOptions
       );
     } catch (error: any) {
       console.log(error.message);
@@ -25,11 +27,15 @@ export class AddressService {
     }
   }
 
-  public createAddress(address: Address): Observable<Address[]> {
+  public createAddress(
+    address: Address,
+    HTTPRequestOptions?: requestOptions
+  ): Observable<Address[]> {
     try {
       return this.http.post<Address[]>(
         this.stringGenerator(this.ENDPOINTS.ADDRESSES),
-        address
+        address,
+        HTTPRequestOptions
       );
     } catch (error: any) {
       console.log(error.message);
@@ -37,14 +43,18 @@ export class AddressService {
     }
   }
 
-  public updateAddress(address: Address): Observable<Address[]> {
+  public updateAddress(
+    address: Address,
+    HTTPRequestOptions?: requestOptions
+  ): Observable<Address[]> {
     try {
       console.log(address.postalCode);
       let response = this.http.put<Address[]>(
         this.stringGenerator(this.ENDPOINTS.ADDRESSES, {
           id: address.addressId,
         }),
-        address
+        address,
+        HTTPRequestOptions
       );
       alert(`Successfully updating address`);
       return response;
@@ -54,10 +64,14 @@ export class AddressService {
     }
   }
 
-  public deleteAddress(id: number): Observable<Address[]> {
+  public deleteAddress(
+    id: number,
+    HTTPRequestOptions?: requestOptions
+  ): Observable<Address[]> {
     try {
       let response = this.http.delete<Address[]>(
-        this.stringGenerator(this.ENDPOINTS.ADDRESSES, { id: id })
+        this.stringGenerator(this.ENDPOINTS.ADDRESSES, { id: id }),
+        HTTPRequestOptions
       );
       alert(`Successfully deleting address`);
       return response;
@@ -74,7 +88,7 @@ export class AddressService {
     const { id, query } = options;
     const idCheck: string = id ? `/${id}` : '';
     const queryCheck: string = query ? `?query=${query}` : '';
-    const result: string = `${this.api}/${endpoint}${idCheck}${queryCheck}`;
+    const result: string = `${this.apiUrl}/${endpoint}${idCheck}${queryCheck}`;
     return result;
   }
 }

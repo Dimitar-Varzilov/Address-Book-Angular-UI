@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AddressService } from 'src/services/address.service';
+import { Request } from 'src/models/requestOptions';
 
 @Component({
   selector: 'app-home',
@@ -7,4 +9,11 @@ import { Component } from '@angular/core';
 })
 export class HomeComponent {
   value = '';
+
+  /**
+   *
+   */
+  constructor(private addressService: AddressService) {}
+
+  public fetchAddresses({}: Request) {}
 }
